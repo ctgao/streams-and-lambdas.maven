@@ -50,7 +50,7 @@ public final class PersonFactory {
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
         return createPersonStream(arrayLength)
-                .toArray(size  -> new Person[size]);
+                .toArray(size -> new Person[size]);
     }
 
 

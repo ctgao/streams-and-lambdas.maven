@@ -1,13 +1,11 @@
 package com.zipcodewilmington.streams.anthropoid;
 
+import com.zipcodewilmington.streams.StreamFilter;
 import com.zipcodewilmington.streams.tools.ReflectionUtils;
 import com.zipcodewilmington.streams.tools.logging.LoggerHandler;
 import com.zipcodewilmington.streams.tools.logging.LoggerWarehouse;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,7 +34,9 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of names of Person objects
      */ // TODO
     public List<String> getNames() {
-        return null;
+        return people.stream()
+                .map(p -> p.getName())
+                .collect(Collectors.toList());
     }
 
 
@@ -44,7 +44,15 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+        //THE IDEA
+        //a stream of just names
+        //get the people associated with those names?
+        // have a list of names first
+        //YO BIG BRAIN METHOD
+        // ADD FROM SET RETURNS A BOOLEAN - KABOOM
+        HashSet<String> uniqueNames = new HashSet<>();
+        return people.stream()
+                .filter(p -> uniqueNames.add(p.getName()));
     }
 
 
@@ -53,7 +61,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getUniquelyNamedPeopleStartingWith(Character character) {
-        return null;
+        return getUniquelyNamedPeople().filter(p -> p.getName().startsWith(character.toString()));
     }
 
     /**
@@ -61,7 +69,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-        return null;
+        return getUniquelyNamedPeople().limit(n);
     }
 
     /**
