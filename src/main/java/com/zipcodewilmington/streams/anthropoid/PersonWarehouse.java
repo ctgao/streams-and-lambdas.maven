@@ -76,7 +76,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a mapping of Person Id to the respective Person name
      */ // TODO
     public Map<Long, String> getIdToNameMap() {
-        return null;
+        return people.stream()
+                .collect(Collectors.toMap(Person::getPersonalId, Person::getName));
     }
 
 
